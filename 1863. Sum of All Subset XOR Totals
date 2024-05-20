@@ -1,0 +1,35 @@
+class Solution {
+
+    public void sum(int nums[], int index, ArrayList<ArrayList<Integer>> subs, ArrayList<Integer> al){
+        if(index == nums.length){
+            if(al.size() == 0)return;
+            subs.add(new ArrayList(al));
+            return;
+        }
+        al.add(nums[index]);
+        sum(nums, index + 1, subs, al);
+        al.remove(al.size() - 1);
+
+        sum(nums, index + 1, subs, al);
+
+    }
+
+    public int subsetXORSum(int[] nums) {
+        int ans = 0;
+
+        ArrayList<ArrayList<Integer>> subs = new ArrayList();
+        ArrayList<Integer> al = new ArrayList();
+        sum(nums, 0, subs, al);
+
+        for(int i= 0 ; i < subs.size(); i ++){
+            int xor = 0;
+            for(int j = 0; j < subs.get(i).size(); j ++){
+                xor = (xor ^ subs.get(i).get(j));
+            }
+            ans += xor;
+        }
+
+        // System.out.println(subs);
+        return ans;
+    }
+}

@@ -1,0 +1,36 @@
+class Solution {
+
+    public int rec(int piles[], int player, int index, int m, int dp[][][]){
+        if(index >= piles.length)return 0;
+
+        if(dp[player][index][m] != 0)return dp[player][index][m];
+
+        int result;
+
+        result = (player == 1) ?  -1: Integer.MAX_VALUE;
+
+        int stones = 0;
+
+        for(int i = 1; i <= Math.min(piles.length - index, 2*m); i ++){
+            
+            stones += piles[i + index - 1];
+
+            if(player == 1){
+              
+                result = Math.max(result, stones + rec(piles, 0, index + i, Math.max(m, i), dp));
+            }
+            else{
+             
+                result = Math.min(result, 0 + rec(piles, 1, index + i, Math.max(m, i), dp));
+            }
+
+        }
+
+        return dp[player][index][m] = result;
+    }
+
+    public int stoneGameII(int[] piles) {
+        int dp[][][] = new int[2][piles.length + 1][piles.length + 1];
+        return rec(piles, 1, 0, 1, dp);
+    }
+}

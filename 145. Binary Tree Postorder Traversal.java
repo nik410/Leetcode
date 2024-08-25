@@ -50,6 +50,9 @@ class Solution {
                 }
             }
         }
+
+        // As we know post order is Left Right Node but morris travesal will be difficult for it so we reverse the order to Node Right left which is similar to preoder
+        
         List<Integer> ans = new ArrayList();
         for(int i = order.size() - 1; i >= 0; i --){
             ans.add(order.get(i));

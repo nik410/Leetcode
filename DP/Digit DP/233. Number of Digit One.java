@@ -1,6 +1,6 @@
-Task : Given an integer n, count the total number of digit 1 appearing in all non-negative integers less than or equal to n.
+// Task : Given an integer n, count the total number of digit 1 appearing in all non-negative integers less than or equal to n.
 
-Approach: Use brute force iterate till n [ will cause TLE for large numbers ] (1e8 ops in 1sec) or Use Digit DP.
+// Approach: Use brute force iterate till n [ will cause TLE for large numbers ] (1e8 ops in 1sec) or Use Digit DP.
 
 class Solution {
 

@@ -1,0 +1,55 @@
+Task : Given an integer n, count the total number of digit 1 appearing in all non-negative integers less than or equal to n.
+
+Approach: Use brute force iterate till n [ will cause TLE for large numbers ] (1e8 ops in 1sec) or Use Digit DP.
+
+class Solution {
+
+    int countNumOcc(String r, int digitCount, int oneCount, int tight, int dp[][][]){
+        if(digitCount == 0){
+            if(oneCount > 0){
+                return oneCount;
+            }
+            return 0;
+        }
+
+        if(dp[digitCount][oneCount][tight] != -1){
+            return dp[digitCount][oneCount][tight];
+        }
+
+        int digit = r.charAt(r.length() - digitCount) - '0';
+
+        int limit = (tight == 1) ? digit : 9;
+
+        int ans = 0;
+
+        for(int i = 0; i <= limit; i ++){
+            if(i == 1){
+                oneCount ++;
+            }
+            ans += countNumOcc(r, digitCount - 1, (oneCount), (((tight == 1) && i == digit) ? 1 : 0), dp);
+
+           if(i == 1){
+                oneCount --;
+            }
+        }
+
+        return dp[digitCount][oneCount][tight] = ans;
+    }
+
+    public int countDigitOne(int n) {
+
+        String r = Integer.toString(n);
+
+        int dp[][][] = new int[11][11][2];
+
+        for(int i = 0; i < 11; i ++){
+            for(int j = 0; j < 11; j ++){
+                for(int k = 0; k < 2; k ++){
+                    dp[i][j][k] = -1;
+                }
+            }
+        }
+
+        return countNumOcc(r, r.length(), 0, 1, dp);
+    }
+}
